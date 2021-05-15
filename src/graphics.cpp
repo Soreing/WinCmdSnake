@@ -10,13 +10,13 @@ void init()
 }
 
 // Draws a 1-2 character string on the console at coordinates x and y
-void draw(const int* arr, short x, short y)
-{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2),y});
+void draw(int x, int y, int* arr)
+{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
     std::cout<< (char*)arr;
 }
 
 // Erases 2 characters at coordinates x and y on the console
 void erase(short x, short y)
-{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2),y});
+{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
     std::cout<< "  ";
 }
