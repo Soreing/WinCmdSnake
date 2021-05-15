@@ -1,6 +1,15 @@
 #include <iostream>
+#include "game.h"
 
 int main() 
 {
-    std::cout<< "Hello World!\n";
+    init();
+    
+    Game mainGame(45, 20);
+
+    while(mainGame.running)
+    {   mainGame.update();
+    }
+
+    std::cin.get();
 }
