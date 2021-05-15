@@ -1,31 +1,29 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <string.h>
-
 class Board
 {
-public:
+private:
     int xSize;
     int ySize;
     char* board;
 
 public:
 
-    Board(int x, int y) : xSize(x), ySize(y), board(new char[x*y])
-    {   memzero(board, x*y);
-    }
+    // Creates a Board of x width and y height and allocates the array on the heap
+    Board(int x, int y);
 
-    char get(int x, int y)
-    {   return board[x*xSize + y];
-    }
-    void set(int x, int y, char val)
-    {   board[x*xSize + y] = val;
-    }
+    // Creates a Board from a file and allocates the array on the heap
+    //Board(const char* filename)
 
-    ~Board()
-    {   delete[] board;
-    }
+    // Gets the element on the board at coordinates x and y
+    char get(int x, int y);
+
+    // Sets the element on the board at coordinates x and y
+    void set(int x, int y, char val);
+
+    // Deallocates memory for the board
+    ~Board();
 
 };
 

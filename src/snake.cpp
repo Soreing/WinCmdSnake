@@ -53,6 +53,10 @@ void Snake::eat()
     draw(body.front().x, body.front().y, &body.front().type);
 }
 
+ std::list<Block> Snake::getBody()
+ {   return body;
+ }
+
 
 Snake::~Snake()
 {
