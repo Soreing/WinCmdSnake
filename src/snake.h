@@ -1,13 +1,7 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include "graphics.h"
 #include <list>
-
-#define UP    1
-#define DOWN  2
-#define LEFT  3
-#define RIGHT 4
 
 // Describes one section of the snake in coordinates and visual type
 struct Block

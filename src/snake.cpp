@@ -1,16 +1,11 @@
 #include "graphics.h"
+#include "directions.h"
 #include "snake.h"
-
-#define UP    1
-#define DOWN  2
-#define LEFT  3
-#define RIGHT 4
 
 int APPLE_BODY = 0x0000B2B2; // ▓▓
 int SNAKE_BODY = 0x0000B0B0; // ░░
 
-// Creates a snake at x, y coordinates with some number of segments
-// Draws the newly created segments on the screen
+
 Snake::Snake(int x, int y, int seg)
 {
     Block segment;
@@ -24,9 +19,7 @@ Snake::Snake(int x, int y, int seg)
     }
 }
 
-// Adds a new section to the snake in the direction it's moving in and
-// Removes one section from the tail. If the last section is fat from
-// eating, it remains there to increase the length of the snake
+
 void Snake::move(int direction)
 {
     Block newSection = body.front();
@@ -53,15 +46,14 @@ void Snake::move(int direction)
     }
 }
 
-// Converts the snake's head to an APPLE_BODY type to signal it has eaten an apple
-// Re-draws the graphic of the head on the console
+
 void Snake::eat()
 {
     body.front().type = APPLE_BODY;
     draw(body.front().x, body.front().y, &body.front().type);
 }
 
-// Deletes all segments of the snake on the console
+
 Snake::~Snake()
 {
     for(auto it = body.begin(); it!= body.end(); it++)
