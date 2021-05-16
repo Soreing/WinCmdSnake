@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <conio.h>
 #include "graphics.h"
 #include "game.h"
 
@@ -50,6 +51,8 @@ void Game::start()
     gameSpeed = 200000000;
     nextTick  = 200000000;
 
+    inputThread = CreateThread(NULL, NULL, inThread, (LPVOID)this, NULL, NULL);
+
     std::list<Block> segments = snake->getBody();
     for(auto it = segments.begin(); it != segments.end(); it++)
         board->set(it->x, it->y, -1);
@@ -82,3 +85,24 @@ Game::~Game()
     if(snake != NULL)
         delete snake;
 } 
+
+DWORD WINAPI inThread(LPVOID lparam)
+{
+    Game* gameInstance = (Game*)lparam;
+    int input;
+
+    while(true)
+    {
+        input = _getch();
+        if(input== 0 || input== 224)
+        {
+            input = _getch();
+            switch(input)
+            {   case 72: gameInstance->dir = UP; break;
+                case 80: gameInstance->dir = DOWN; break;
+                case 75: gameInstance->dir = LEFT; break;
+                case 77: gameInstance->dir = RIGHT; break;
+            }
+        }
+    }
+}

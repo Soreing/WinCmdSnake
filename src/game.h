@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <windows.h>
 #include <chrono>
 #include "snake.h"
 #include "board.h"
@@ -22,6 +23,8 @@ private:
     long long nextTick;     // Timestamp of the next logic tick
     long long gameSpeed;    // Time required before the next game tick
 
+    HANDLE inputThread;     // Thread for user input
+
 public:
 
     // Initializes the graphics in case it isn't
@@ -41,6 +44,8 @@ public:
 
     // Deallocated dynamically allocated Board and Snake
     ~Game();
+
+    friend DWORD WINAPI inThread(LPVOID lparam);
 };
 
 #endif
