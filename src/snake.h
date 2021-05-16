@@ -29,8 +29,11 @@ public:
     // Re-draws the graphic of the head on the console
     void eat();
 
-    // Returns the body segments of the snake
+    // Returns all the body segments of the snake
     std::list<Block> getBody();
+
+    // Returns the head segment of the snake
+    Block Snake::getHead();
 
     // Deletes all segments of the snake on the console
     ~Snake();

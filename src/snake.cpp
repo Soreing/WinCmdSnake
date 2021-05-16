@@ -12,7 +12,7 @@ Snake::Snake(int x, int y, int seg)
 
     for(int i=0; i<seg; i++)
     {   
-        segment = Block{ SNAKE_BODY, x-i, y };
+        segment = Block{ SNAKE_BODY, x+i, y };
 
         body.push_back(segment);
         draw(segment.x, segment.y, &segment.type);
@@ -57,6 +57,9 @@ void Snake::eat()
  {   return body;
  }
 
+Block Snake::getHead()
+{    return body.front();
+}
 
 Snake::~Snake()
 {
