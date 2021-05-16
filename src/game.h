@@ -4,6 +4,7 @@
 #include <chrono>
 #include "snake.h"
 #include "board.h"
+#include "directions.h"
 
 typedef std::chrono::steady_clock::time_point timeStamp;
 
@@ -16,6 +17,10 @@ private:
 
     timeStamp lastUpdate;   // Last time stamp of when Update() was called
     long long totalTime;    // Total amount of nanoseconds that elapsed in the game
+
+    Direction dir;          // Direction of the snake
+    long long nextTick;     // Timestamp of the next logic tick
+    long long gameSpeed;    // Time required before the next game tick
 
 public:
 
