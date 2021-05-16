@@ -16,6 +16,9 @@ public:
     // Creates a Board from a file and allocates the array on the heap
     //Board(const char* filename)
 
+    // Draws the Board on the console
+    void drawBoard();
+
     // Gets the element on the board at coordinates x and y
     char get(int x, int y);
 
