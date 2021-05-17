@@ -133,7 +133,7 @@ void Game::generateApple()
     } while ( board->get(x, y) != 0);
     
     apple = Apple{x, y};
-    draw(x, y, &APPLE_IMAGE);
+    draw(x, y, &APPLE_IMAGE, RED);
 }
 
 

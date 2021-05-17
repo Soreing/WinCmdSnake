@@ -7,12 +7,22 @@ void init()
     SetConsoleCursorInfo(outputHandle, &params);
 }
 
-void draw(int x, int y, int* arr)
-{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
+void draw(int x, int y, int* arr, int color)
+{   setColor(color);
+    SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
     std::cout<< (char*)arr;
 }
 
 void erase(short x, short y)
-{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
+{   setColor(WHITE);
+    SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
     std::cout<< "  ";
+}
+
+void gotoPosition(int x, int y)
+{   SetConsoleCursorPosition(outputHandle, COORD{(short)(x*2), (short)y});
+}
+
+void setColor(int color)
+{   SetConsoleTextAttribute(outputHandle, color);
 }

@@ -51,8 +51,7 @@ void Board::drawBoard()
         {   
             tile = get(j,i);
             if(tile != 0)
-                draw(j, i, &obstacles[tile]);
-
+                draw(j, i, &obstacles[tile], BLUE);
         }
 }
 
