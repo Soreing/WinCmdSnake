@@ -34,6 +34,10 @@ public:
     // If either objects already exist, they will be deleted
     void loadLevel(int xSize, int ySize);
 
+    // Creates a Snake and a Board by reading level data from a file
+    // If either objects already exist, they will be deleted
+    void loadLevel(const char* filename);
+
     // Sets the game running, initializes the timer
     void start();
 

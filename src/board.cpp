@@ -1,4 +1,5 @@
 #include <string.h>
+#include <fstream>
 #include "board.h"
 #include "graphics.h"
 
@@ -22,6 +23,20 @@ int obstacles[] = {
 
 Board::Board(int x, int y) : xSize(x), ySize(y), board(new char[x*y])
 {   memset(board, 0, x*y);
+}
+
+
+Board::Board(const char* filename)
+{
+    std::ifstream in(filename, std::ios::binary);
+
+    in.read((char*)&xSize, sizeof(int));
+    in.read((char*)&ySize, sizeof(int));
+
+    board = new char[xSize*ySize];
+    in.read(board, xSize*ySize);
+
+    in.close();
 }
 
 
@@ -50,6 +65,13 @@ void Board::set(int x, int y, char val)
 {   board[x + y*xSize] = val;
 }
 
+int Board::getXSize()
+{   return xSize;
+}
+
+int Board::getYSize()
+{   return ySize;
+}
 
 Board::~Board()
 {   delete[] board;

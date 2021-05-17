@@ -40,6 +40,18 @@ void Game::loadLevel(int xSize, int ySize)
     board->set(xSize-1, ySize-1, 4);
 }
 
+void Game::loadLevel(const char* filename)
+{
+    if(board != NULL)
+        delete board;
+
+    if(snake != NULL)
+        delete snake;
+
+    board = new Board(filename);
+    snake = new Snake(board->getXSize()/2, board->getYSize()/2, 5);
+}
+
 void Game::start()
 {   
     if(board == NULL || snake == NULL)

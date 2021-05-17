@@ -6,7 +6,7 @@ int main()
 {
     Game gm;
 
-    gm.loadLevel(45, 20);
+    gm.loadLevel("level.bin");
     gm.start();
 
     while(gm.isRunning())
