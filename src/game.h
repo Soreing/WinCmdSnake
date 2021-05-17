@@ -28,6 +28,10 @@ private:
     long long gameSpeed;    // Time required before the next game tick
 
     Apple apple;            // Current apple on the board
+    int   score;            // Current Score
+    int   curTarget;        // Current Target Score for difficulty increase
+    int   oldTarget;        // Old Target Score for difficulty increase
+    int   speedScale;       // Scale of how faster the game gets
 
     HANDLE inputThread;     // Thread for user input
 
@@ -52,6 +56,9 @@ public:
 
     // Generates a randomply placed apple and draws it on the board
     void generateApple();
+
+    // Increases the speed of the snake
+    void increaseSpeed();
 
     bool isRunning();
 

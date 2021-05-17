@@ -70,6 +70,11 @@ void Game::start()
     gameSpeed = 200000000;
     nextTick  = 200000000;
 
+    score      = 0;
+    oldTarget  = 0;
+    curTarget  = 300;
+    speedScale = 50;
+
     inputThread = CreateThread(NULL, NULL, inThread, (LPVOID)this, NULL, NULL);
 
     std::list<Block> segments = snake->getBody();
@@ -117,6 +122,13 @@ void Game::update()
         if(head.x == apple.x && head.y == apple.y)
         {   snake->eat();
             generateApple();
+            score += 100;
+
+            if(curTarget <= score)
+            {   oldTarget  = curTarget;
+                curTarget += curTarget;
+                increaseSpeed();
+            }
         }
     }
 
@@ -134,6 +146,11 @@ void Game::generateApple()
     
     apple = Apple{x, y};
     draw(x, y, &APPLE_IMAGE, RED);
+}
+
+
+void Game::increaseSpeed()
+{    gameSpeed -= gameSpeed*speedScale/100;
 }
 
 
