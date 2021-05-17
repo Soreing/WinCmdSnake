@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include "directions.h"
 #include "snake.h"
+#include <iostream>
 
 int APPLE_BODY = 0x0000B2B2; // ▓▓
 int SNAKE_BODY = 0x0000B0B0; // ░░
@@ -20,26 +21,18 @@ Snake::Snake(int x, int y, int seg)
 }
 
 
-void Snake::move(int direction)
+void Snake::move(int x, int y, Block &removed)
 {
-    Block newSection = body.front();
-    newSection.type = SNAKE_BODY;
-
-    switch(direction)
-    {   case UP:    newSection.y -= 1; break;
-        case DOWN:  newSection.y += 1; break;
-        case LEFT:  newSection.x -= 1; break;
-        case RIGHT: newSection.x += 1; break;
-    }
+    Block newSection = {SNAKE_BODY, x, y};
+    Block tail = body.back();
 
     body.push_front(newSection);
     draw(newSection.x, newSection.y, &newSection.type);
 
-    Block tail = body.back();
-
     if(tail.type == SNAKE_BODY)
     {   erase(tail.x, tail.y);
         body.pop_back();
+        removed = tail;
     }
     else
     {   body.back().type = SNAKE_BODY;

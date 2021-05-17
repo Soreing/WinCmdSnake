@@ -1,6 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <conio.h>
+#include <time.h>
 #include "graphics.h"
 #include "game.h"
 
@@ -13,6 +14,7 @@ int APPLE_IMAGE = 0x0000FE20; //  ■
 
 Game::Game() : board(NULL), snake(NULL), dir(LEFT)
 {   init();
+    srand((unsigned int)time(NULL));
 } 
 
 
@@ -85,13 +87,32 @@ void Game::update()
     totalTime += ELAPSED_NANOS(now, lastUpdate);
     lastUpdate = now;
 
-    Block head, remove;
+    Block head, remove = {-1, -1, 0};
 
     if(totalTime > nextTick)
-    {   snake->move(dir);
+    {   
         nextTick += gameSpeed;
-
+        remove.x  = -1;
+        remove.y  = -1;
         head = snake->getHead();
+
+        switch(dir)
+        {   case UP:    head.y -= 1; break;
+            case DOWN:  head.y += 1; break;
+            case LEFT:  head.x -= 1; break;
+            case RIGHT: head.x += 1; break;
+        }
+
+        if(board->get(head.x, head.y) != 0)
+        {   running = false;
+            return;
+        }
+
+
+        snake->move(head.x, head.y, remove);
+        board->set(head.x, head.y, -1);
+        if(remove.x != -1)
+            board->set(remove.x, remove.y, 0);
 
         if(head.x == apple.x && head.y == apple.y)
         {   snake->eat();

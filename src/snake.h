@@ -20,10 +20,10 @@ public:
     // Draws the newly created segments on the screen
     Snake(int x, int y, int seg);
 
-    // Adds a new section to the snake in the direction it's moving in and
+    // Adds a new section to the snake in the coordinates x and y
     // Removes one section from the tail. If the last section is fat from
     // eating, it remains there to increase the length of the snake
-    void move(int direction);
+    void move(int x, int y, Block &removed);
 
     // Converts the snake's head to an APPLE_BODY type to signal it has eaten an apple
     // Re-draws the graphic of the head on the console
