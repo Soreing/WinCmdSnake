@@ -10,7 +10,8 @@ typedef std::chrono::steady_clock::time_point timeStamp;
 #define ELAPSED_NANOS(x, y) std::chrono::duration_cast<std::chrono::nanoseconds>(x - y).count();
 
 int APPLE_IMAGE = 0x0000FE20; //  ■
-
+int FULL_BAR    = 0x0000DBDB; // ██
+int EMPTY_BAR   = 0x0000B0B0; // ░░
 
 Game::Game() : board(NULL), snake(NULL), dir(LEFT)
 {   init();
@@ -71,9 +72,10 @@ void Game::start()
     nextTick  = 200000000;
 
     score      = 0;
+    level      = 1;
     oldTarget  = 0;
     curTarget  = 300;
-    speedScale = 50;
+    speedScale = 20;
 
     inputThread = CreateThread(NULL, NULL, inThread, (LPVOID)this, NULL, NULL);
 
@@ -83,6 +85,8 @@ void Game::start()
 
     board->drawBoard();
     generateApple();
+    displayScore();
+    displayProgress();
 }
 
 
@@ -127,8 +131,12 @@ void Game::update()
             if(curTarget <= score)
             {   oldTarget  = curTarget;
                 curTarget += curTarget;
+                level++;
                 increaseSpeed();
             }
+
+            displayScore();
+            displayProgress();
         }
     }
 
@@ -151,6 +159,33 @@ void Game::generateApple()
 
 void Game::increaseSpeed()
 {    gameSpeed -= gameSpeed*speedScale/100;
+}
+
+
+void Game::displayScore()
+{
+    gotoPosition(1, board->getYSize());
+    setColor(WHITE);
+    std::cout<< "Score: "<< score;
+}
+
+
+void Game::displayProgress()
+{
+    setColor(WHITE);
+    gotoPosition(11, board->getYSize());
+    std::cout<< "Progress: ";
+
+    int i=0;
+    int rate = (score-oldTarget)*10/(curTarget-oldTarget);
+
+    for(; i<rate; i++)
+        draw(16+i, board->getYSize(), &FULL_BAR, GREEN);
+    for(; i<10; i++)
+        draw(16+i, board->getYSize(), &EMPTY_BAR);
+
+    setColor(WHITE);
+    std::cout<< "  Level ["<<level<<"]";
 }
 
 

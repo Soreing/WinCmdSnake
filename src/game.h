@@ -29,6 +29,7 @@ private:
 
     Apple apple;            // Current apple on the board
     int   score;            // Current Score
+    int   level;            // Current Speed difficulty level
     int   curTarget;        // Current Target Score for difficulty increase
     int   oldTarget;        // Old Target Score for difficulty increase
     int   speedScale;       // Scale of how faster the game gets
@@ -59,6 +60,12 @@ public:
 
     // Increases the speed of the snake
     void increaseSpeed();
+
+    // Displays the score at the bottom of the board
+    void displayScore();
+
+    // Displays the progress to the next level at the bottom of the board
+    void displayProgress();
 
     bool isRunning();
 
