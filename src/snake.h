@@ -3,6 +3,9 @@
 
 #include <list>
 
+// RGB Colors
+const int colors[5] = {RED, YELLOW, GREEN, BLUE, PURPLE};
+
 // Describes one section of the snake in coordinates and visual type
 struct Block
 {   int type;
@@ -13,6 +16,7 @@ class Snake
 {
 private:
     std::list<Block> body;
+    int colorIndex;
 
 public:
 
