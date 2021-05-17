@@ -8,10 +8,13 @@ typedef std::chrono::steady_clock::time_point timeStamp;
 #define TIME_NOW std::chrono::high_resolution_clock().now()
 #define ELAPSED_NANOS(x, y) std::chrono::duration_cast<std::chrono::nanoseconds>(x - y).count();
 
+int APPLE_IMAGE = 0x0000FE20; //  ■
+
 
 Game::Game() : board(NULL), snake(NULL), dir(LEFT)
 {   init();
 } 
+
 
 void Game::loadLevel(int xSize, int ySize)
 {
@@ -40,6 +43,7 @@ void Game::loadLevel(int xSize, int ySize)
     board->set(xSize-1, ySize-1, 4);
 }
 
+
 void Game::loadLevel(const char* filename)
 {
     if(board != NULL)
@@ -51,6 +55,7 @@ void Game::loadLevel(const char* filename)
     board = new Board(filename);
     snake = new Snake(board->getXSize()/2, board->getYSize()/2, 5);
 }
+
 
 void Game::start()
 {   
@@ -70,7 +75,9 @@ void Game::start()
         board->set(it->x, it->y, -1);
 
     board->drawBoard();
+    generateApple();
 }
+
 
 void Game::update()
 {
@@ -78,16 +85,41 @@ void Game::update()
     totalTime += ELAPSED_NANOS(now, lastUpdate);
     lastUpdate = now;
 
+    Block head, remove;
+
     if(totalTime > nextTick)
     {   snake->move(dir);
         nextTick += gameSpeed;
+
+        head = snake->getHead();
+
+        if(head.x == apple.x && head.y == apple.y)
+        {   snake->eat();
+            generateApple();
+        }
     }
 
 }
 
+
+void Game::generateApple()
+{
+    int x, y;
+
+    do
+    {   x = rand() % board->getXSize();
+        y = rand() % board->getYSize();
+    } while ( board->get(x, y) != 0);
+    
+    apple = Apple{x, y};
+    draw(x, y, &APPLE_IMAGE);
+}
+
+
 bool Game::isRunning()
 {   return running;
 }
+
 
 Game::~Game()
 {   
@@ -97,6 +129,7 @@ Game::~Game()
     if(snake != NULL)
         delete snake;
 } 
+
 
 DWORD WINAPI inThread(LPVOID lparam)
 {

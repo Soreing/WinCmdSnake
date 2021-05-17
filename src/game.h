@@ -9,6 +9,10 @@
 
 typedef std::chrono::steady_clock::time_point timeStamp;
 
+struct Apple
+{   int x, y;
+};
+
 class Game
 {
 private:
@@ -22,6 +26,8 @@ private:
     Direction dir;          // Direction of the snake
     long long nextTick;     // Timestamp of the next logic tick
     long long gameSpeed;    // Time required before the next game tick
+
+    Apple apple;            // Current apple on the board
 
     HANDLE inputThread;     // Thread for user input
 
@@ -38,11 +44,14 @@ public:
     // If either objects already exist, they will be deleted
     void loadLevel(const char* filename);
 
-    // Sets the game running, initializes the timer
+    // Sets the game running, initializes the timer and draws initial graphics
     void start();
 
     // Handles game logic and updating the timer
     void update();
+
+    // Generates a randomply placed apple and draws it on the board
+    void generateApple();
 
     bool isRunning();
 

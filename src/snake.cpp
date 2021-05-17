@@ -23,6 +23,7 @@ Snake::Snake(int x, int y, int seg)
 void Snake::move(int direction)
 {
     Block newSection = body.front();
+    newSection.type = SNAKE_BODY;
 
     switch(direction)
     {   case UP:    newSection.y -= 1; break;
