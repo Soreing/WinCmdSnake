@@ -112,6 +112,16 @@ void Game::update()
             case RIGHT: head.x += 1; break;
         }
 
+        if(head.x == -1)
+            head.x = board->getXSize()-1;
+        else if(head.x == board->getXSize())
+            head.x = 0;
+
+        if(head.y == -1)
+            head.y = board->getYSize()-1;
+        else if(head.y == board->getYSize())
+            head.y = 0;
+
         if(board->get(head.x, head.y) != 0)
         {   running = false;
             return;
