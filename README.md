@@ -7,6 +7,7 @@ Windows Console Snake game where the player collects apples to gain points. The 
 Use the following commands in a terminal to build the project.
 (Requires [CMake](https://cmake.org/download/))
 
+The executable is found in the `build/Debug` directory.
 ```
 mkdir build
 cd build
